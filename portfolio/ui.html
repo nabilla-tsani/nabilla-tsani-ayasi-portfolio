@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UI/UX & Desain Grafis - Proyek</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="min-h-full antialiased flex flex-col w-full overflow-x-hidden relative bg-slate-930 text-slate-100 font-sans">
+
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('../img/bg.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -2;
+    "></div>
+
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: -1;
+    "></div>
+
+    <div class="flex-grow w-full flex flex-col overflow-x-hidden relative z-10">
+
+    <style>
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 13px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #cbd5e1;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: .25s;
+        }
+
+        .nav-dropdown-toggle i {
+            font-size: 9px;
+            transition: .25s;
+            line-height: 1;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 220px;
+            background: rgba(17, 20, 45, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            border-radius: 10px;
+            transition: .2s;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: #fff;
+        }
+
+        .dropdown-menu i {
+            width: 16px;
+            color: #818cf8;
+            font-size: 12px;
+        }
+
+        .nav-link { transition: all 0.25s ease; }
+        .nav-link:hover { background: rgba(255, 255, 255, 0.08) !important; color: #f1f5f9 !important; }
+        .nav-link.active { background: rgba(79, 70, 229, 0.3) !important; color: #a5b4fc !important; border: 1px solid rgba(99, 102, 241, 0.2); }
+
+        .nav-link-mob { transition: background 0.2s, color 0.2s; }
+        .nav-link-mob:hover { background: rgba(255, 255, 255, 0.06) !important; color: #f1f5f9 !important; }
+        .nav-link-mob.active { background: rgba(79, 70, 229, 0.2) !important; color: #a5b4fc !important; font-weight: 600; }
+
+        .mobile-submenu {
+            padding-left: 20px !important;
+            font-size: 12px !important;
+            opacity: 0.9;
+            border-left: 1px dashed rgba(165, 180, 252, 0.2);
+            margin-left: 24px;
+            border-radius: 0 8px 8px 0 !important;
+        }
+
+        @media (max-width: 1140px) {
+            .nav-link, .nav-dropdown-toggle {
+                padding: 5px 9px !important;
+                font-size: 11px !important;
+            }
+            #nav-pill {
+                padding: 4px 12px !important;
+            }
+        }
+
+        @media (max-width: 920px) {
+            #nav-links-container { display: none !important; }
+            #nav-hamburger { display: flex !important; }
+            #main-nav { padding: 12px 16px !important; }
+        }
+    </style>
+
+    <nav id="main-nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 24px; transition: all .3s ease;">
+        <div id="nav-pill" style="display: flex; align-items: center; justify-content: space-between; gap: 4px; background: transparent; border: 1px solid transparent; border-radius: 50px; padding: 6px 20px; box-shadow: none; max-width: 1280px; margin: 0 auto; width: 100%; transition: all .3s ease;">
+            <a href="../index.html" style="text-decoration: none; flex-shrink: 0; display: flex; align-items: center;">
+                <img src="../img/logo.png" alt="Logo Nabilla" style="height: 38px; width: auto; display: block; transition: height .3s;">
+            </a>
+
+                        <div id="nav-links-container" style="display: flex; align-items: center; gap: 4px;">
+                <a href="../index.html#beranda" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Beranda</a>
+
+                <div class="nav-dropdown">
+                    <a href="../index.html#projects" class="nav-link nav-dropdown-toggle">
+                        <span>Projects</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <a href="./web.html"><i class="fa-solid fa-code"></i>Web and Mobile Development</a>
+                        <a href="./ui.html"><i class="fa-solid fa-pen-ruler"></i>UI/UX dan Desain Grafis</a>
+                        <a href="./data.html"><i class="fa-solid fa-database"></i>Sistem dan Data</a>
+                    </div>
+                </div>
+
+                <a href="../index.html#pendidikan" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Pendidikan</a>
+                <a href="../index.html#keahlian" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Keahlian</a>
+                <a href="../index.html#magang" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Magang</a>
+                <a href="../index.html#teknis" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Teknis</a>
+                <a href="../index.html#organisasi" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Organisasi</a>
+                <a href="../index.html#sertifikat" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Sertifikat</a>
+            </div>
+
+            <button id="nav-hamburger" onclick="toggleMobileNav()" style="display: none; width: 36px; height: 36px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 4px; padding: 0; flex-shrink: 0; transition: .2s;">
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+            </button>
+        </div>
+
+        <div id="nav-mobile" style="display: none; margin-top: 10px; max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 4px;">
+            <div style="background: rgba(16, 18, 41, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+                <a href="../index.html#beranda" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Beranda</a>
+
+                 <div style="padding: 8px 16px 4px 16px; font-size: 11px; font-weight: bold; color: #6366f1; text-transform: uppercase; letter-spacing: 0.05em;">Projects</div>
+                <a href="./web.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">Web & Mobile Development</a>
+                <a href="./ui.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">UI/UX & Graphic Design</a>
+                <a href="./data.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">System & Data Science</a>
+                
+                <a href="../index.html#pendidikan" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Pendidikan</a>
+                <a href="../index.html#keahlian" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Keahlian</a>
+                <a href="../index.html#magang" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Magang</a>
+                <a href="../index.html#teknis" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Teknis</a>
+                <a href="../index.html#organisasi" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Organisasi</a>
+                <a href="../index.html#sertifikat" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block; margin-top: 4px;">Sertifikat</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        var nav     = document.getElementById('main-nav');
+        var navPill = document.getElementById('nav-pill');
+        var navLogo = nav.querySelector('img');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+                nav.style.padding            = '8px 24px';
+                navPill.style.background     = 'rgba(17, 20, 45, 0.4)';
+                navPill.style.borderColor    = 'rgba(255, 255, 255, 0.08)';
+                navPill.style.boxShadow      = '0 8px 30px rgba(0,0,0,0.2)';
+                navPill.style.backdropFilter = 'blur(16px)';
+                navPill.style.webkitBackdropFilter = 'blur(16px)';
+                navLogo.style.height         = '34px';
+            } else {
+                nav.style.padding            = '16px 24px';
+                navPill.style.background     = 'transparent';
+                navPill.style.borderColor    = 'transparent';
+                navPill.style.boxShadow      = 'none';
+                navPill.style.backdropFilter = 'none';
+                navPill.style.webkitBackdropFilter = 'none';
+                navLogo.style.height         = '38px';
+            }
+        });
+
+        function toggleMobileNav() {
+            var mob = document.getElementById('nav-mobile');
+            var hamburger = document.getElementById('nav-hamburger');
+
+            if (mob.style.display === 'block') {
+                mob.style.display = 'none';
+                hamburger.style.background = 'rgba(255,255,255,0.06)';
+            } else {
+                mob.style.display = 'block';
+                hamburger.style.background = 'rgba(99, 102, 241, 0.2)';
+            }
+        }
+
+        (function() {
+            var path = window.location.pathname;
+            document.querySelectorAll('.nav-link, .nav-link-mob, .dropdown-menu a').forEach(function(a) {
+                var href = a.getAttribute('href') || '';
+                if (href && !href.includes('#') && path === new URL(href, window.location.origin).pathname) {
+                    a.classList.add('active');
+                    var parentDropdown = a.closest('.nav-dropdown');
+                    if (parentDropdown) {
+                        parentDropdown.querySelector('.nav-dropdown-toggle').classList.add('active');
+                    }
+                }
+            });
+        })();
+    </script>
+
+    <section class="py-20 px-4 md:px-8 lg:px-20 overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <span class="tracking-[0.2em] uppercase text-xs font-bold" style="color:#a5b4fc;">Project's</span>
+                <h2 class="text-3xl font-bold text-white mt-2">UI/UX &amp; Desain Grafis</h2>
+                <p class="mt-2 text-sm" style="color:#94a3b8;">Kumpulan Proyek UI/UX &amp; Desain Grafis yang telah dirancang &amp; dikembangkan</p>
+            </div>
+
+            <!-- Project List -->
+            <div style="display:flex; flex-direction:column; gap:40px; width:min(100%, 960px); margin:0 auto;" id="project-list-container">
+                
+                <!-- Project Item 0 -->
+                <div
+                    id="proj-0-card"
+                    style="
+                        position:relative;
+                        border-radius:24px;
+                        border:1px solid rgba(255,255,255,0.1);
+                        background: linear-gradient(145deg, rgba(30,41,59,0.7), rgba(15,23,42,0.5));
+                        backdrop-filter: blur(12px);
+                        -webkit-backdrop-filter: blur(12px);
+                        overflow:hidden;
+                        transition: border-color 0.3s ease;
+                    "
+                    onmouseenter="pauseSlideshow('proj-0')"
+                    onmouseleave="resumeSlideshow('proj-0')"
+                >
+                    <!-- Glow blob -->
+                    <div style="position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%; background:#86efac; opacity:.12; filter:blur(50px); pointer-events:none;"></div>
+
+                    <div class="project-grid-container">
+
+                        <!-- Kiri: Preview -->
+                        <div
+                            style="padding:18px; background:linear-gradient(135deg,#0f172a,#111827); display:flex; flex-direction:column; gap:12px; position:relative;"
+                            onkeydown="handleKey(event, 'proj-0', 9)"
+                            tabindex="0"
+                        >
+                            <!-- Preview Utama -->
+                            <div style="position:relative; width:100%; aspect-ratio:217/100; overflow:hidden; background:#0f172a; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+                                <img
+                                    id="proj-0-main"
+                                    src="../img/project/ui1.png"
+                                    alt="EduVenture UI/UX Design"
+                                    style="width:100%; height:100%; object-fit:contain; display:block; transition:opacity 0.25s ease;"
+                                >
+
+                                <!-- Tombol Prev -->
+                                <button
+                                    onclick="stepPreview('proj-0', 9, -1)"
+                                    style="position:absolute; left:6px; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.15); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; opacity:0; transition:opacity 0.2s;"
+                                    id="proj-0-btn-prev"
+                                ><i class="fa-solid fa-chevron-left"></i></button>
+
+                                <!-- Tombol Next -->
+                                <button
+                                    onclick="stepPreview('proj-0', 9, 1)"
+                                    style="position:absolute; right:6px; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.15); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; opacity:0; transition:opacity 0.2s;"
+                                    id="proj-0-btn-next"
+                                ><i class="fa-solid fa-chevron-right"></i></button>
+
+                                <!-- Counter -->
+                                <div
+                                    id="proj-0-counter"
+                                    style="position:absolute; bottom:6px; right:8px; font-size:10px; font-weight:600; color:rgba(255,255,255,0.7); background:rgba(0,0,0,0.4); padding:2px 7px; border-radius:10px; pointer-events:none;"
+                                >1 / 9</div>
+
+                                <!-- Progress bar -->
+                                <div style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:rgba(255,255,255,0.08); border-radius:0 0 6px 6px;">
+                                    <div
+                                        id="proj-0-progress"
+                                        style="height:100%; width:0%; background:#86efac; border-radius:inherit; transition:width 0.1s linear;"
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <!-- Hover style for buttons -->
+                            <style>
+                                #proj-0-card:hover #proj-0-btn-prev,
+                                #proj-0-card:hover #proj-0-btn-next { opacity: 1 !important; }
+                            </style>
+
+                            <!-- Thumbnails -->
+                            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:4px;">
+                                <div id="proj-0-thumb-0" onclick="switchPreview('proj-0', '../img/project/ui1.png', 0, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid #86efac; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:1;">
+                                    <img src="../img/project/ui1.png" alt="screenshot 1" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-1" onclick="switchPreview('proj-0', '../img/project/ui2.png', 1, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui2.png" alt="screenshot 2" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-2" onclick="switchPreview('proj-0', '../img/project/ui3.png', 2, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui3.png" alt="screenshot 3" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-3" onclick="switchPreview('proj-0', '../img/project/ui4.png', 3, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui4.png" alt="screenshot 4" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-4" onclick="switchPreview('proj-0', '../img/project/ui5.png', 4, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui5.png" alt="screenshot 5" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-5" onclick="switchPreview('proj-0', '../img/project/ui6.png', 5, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui6.png" alt="screenshot 6" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-6" onclick="switchPreview('proj-0', '../img/project/ui7.png', 6, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui7.png" alt="screenshot 7" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-7" onclick="switchPreview('proj-0', '../img/project/ui8.png', 7, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui8.png" alt="screenshot 8" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                                <div id="proj-0-thumb-8" onclick="switchPreview('proj-0', '../img/project/ui9.png', 8, 8, '#86efac', 9)" style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; border:2px solid transparent; box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease; opacity:0.55;">
+                                    <img src="../img/project/ui9.png" alt="screenshot 9" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="proj-0-active" value="0">
+                            <input type="hidden" id="proj-0-total" value="9">
+                            <input type="hidden" id="proj-0-accent" value="#86efac">
+                            <input type="hidden" id="proj-0-paused" value="0">
+                            
+                            <!-- Store image URLs as data -->
+                            <div id="proj-0-img" style="display:none;">
+                                <span>../img/project/ui1.png</span>
+                                <span>../img/project/ui2.png</span>
+                                <span>../img/project/ui3.png</span>
+                                <span>../img/project/ui4.png</span>
+                                <span>../img/project/ui5.png</span>
+                                <span>../img/project/ui6.png</span>
+                                <span>../img/project/ui7.png</span>
+                                <span>../img/project/ui8.png</span>
+                                <span>../img/project/ui9.png</span>
+                            </div>
+                        </div>
+
+                        <!-- Kanan: Info -->
+                        <div class="project-info-container">
+
+                            <!-- Icon + Title -->
+                            <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;">
+                                <div style="width:36px; height:36px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:rgba(134,239,172,0.15); border:1px solid rgba(134,239,172,0.30); margin-top:2px;">
+                                    <i class="fa-solid fa-pencil-ruler" style="font-size:14px; color:#86efac;"></i>
+                                </div>
+                                <div>
+                                    <h3 style="font-size:17px; font-weight:700; color:#f1f5f9; margin:0 0 4px; line-height:1.3;">EduVenture UI/UX Design</h3>
+                                    <p style="font-size:12px; color:#86efac; margin:0; font-weight:500; line-height:1.4;">User Interface & User Experience Design</p>
+
+                                    <!-- Figma Link -->
+                                    <div style="display:flex; gap:8px; margin-top:10px; align-items:center;">
+                                        <a href="https://figma.com/design/keXhJ6SDIMG4gNm9pD9Hnz/EduVenture?node-id=0-1&p=f&t=01cXqhRehR3pdOLt-0" target="_blank" rel="noopener noreferrer"
+                                            style="
+                                            display:inline-flex;
+                                            align-items:center;
+                                            gap:6px;
+                                            padding:4px 10px;
+                                            border-radius:6px;
+                                            background:rgba(255,255,255,0.06);
+                                            border:1px solid rgba(255,255,255,0.12);
+                                            text-decoration:none;
+                                            transition:all .25s ease;
+                                        "
+                                        onmouseover="
+                                            this.style.background='rgba(255,255,255,0.14)';
+                                            this.style.borderColor='rgba(255,255,255,0.28)';
+                                            this.style.transform='translateY(-2px)';
+                                            this.style.boxShadow='0 8px 18px rgba(0,0,0,.25)';
+                                            this.querySelector('i').style.color='#ffffff';
+                                            this.querySelector('span').style.color='#ffffff';
+                                        "
+                                        onmouseout="
+                                            this.style.background='rgba(255,255,255,0.06)';
+                                            this.style.borderColor='rgba(255,255,255,0.12)';
+                                            this.style.transform='translateY(0)';
+                                            this.style.boxShadow='none';
+                                            this.querySelector('i').style.color='#cbd5e1';
+                                            this.querySelector('span').style.color='#cbd5e1';
+                                        "
+                                        >
+                                            <i class="fa-brands fa-figma" style="font-size:13px; color:#cbd5e1; transition:.25s;"></i>
+                                            <span style="font-size:10px; font-weight:600; color:#cbd5e1; transition:.25s;">Figma</span>
+                                        </a>
+                                    </div>                            
+                                </div>
+                            </div>
+
+                            <!-- Divider -->
+                            <div style="height:1px; background:rgba(255,255,255,0.07); margin:4px 0 14px;"></div>
+
+                            <!-- Deskripsi -->
+                            <p style="font-size:12px; color:#94a3b8; line-height:1.7; margin:0 0 16px;">Perancangan UI/UX aplikasi EduVenture menggunakan pendekatan user-centered design, meliputi analisis kebutuhan pengguna, pembuatan wireframe, prototipe interaktif, serta pengujian awal antarmuka.</p>
+
+                            <!-- Peran -->
+                            <div style="margin-bottom:14px;">
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:7px;">
+                                    <i class="fa-solid fa-user-tie" style="font-size:11px; color:#86efac;"></i>
+                                    <span style="font-size:11px; color:#cbd5e1; font-weight:600;">Peran</span>
+                                </div>
+                                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                                    <span style="padding:3px 10px; border-radius:20px; font-size:10px; font-weight:600; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">UI Designer</span>
+                                    <span style="padding:3px 10px; border-radius:20px; font-size:10px; font-weight:600; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">UX Designer</span>
+                                    <span style="padding:3px 10px; border-radius:20px; font-size:10px; font-weight:600; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">Prototype Designer</span>
+                                </div>
+                            </div>
+
+                            <!-- Teknologi -->
+                            <div style="margin-bottom:12px;">
+                                <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+                                    <i class="fa-solid fa-code" style="font-size:10px; color:#64748b;"></i>
+                                    <span style="font-size:10px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Teknologi</span>
+                                </div>
+                                <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:600; letter-spacing:0.04em; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">User-Centered Design</span>
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:600; letter-spacing:0.04em; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">Wireframing</span>
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:600; letter-spacing:0.04em; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">Interactive Prototyping</span>
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:600; letter-spacing:0.04em; background:rgba(134,239,172,0.15); color:#86efac; border:1px solid rgba(134,239,172,0.30);">Usability Design</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div style="margin-bottom:20px;">
+                                <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+                                    <i class="fa-solid fa-wrench" style="font-size:10px; color:#64748b;"></i>
+                                    <span style="font-size:10px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Tools</span>
+                                </div>
+                                <div style="display:flex; flex-wrap:wrap; gap:5px;">
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:500; background:rgba(255,255,255,0.05); color:#94a3b8; border:1px solid rgba(255,255,255,0.1);">Figma</span>
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:500; background:rgba(255,255,255,0.05); color:#94a3b8; border:1px solid rgba(255,255,255,0.1);">Canva</span>
+                                    <span style="padding:3px 9px; border-radius:5px; font-size:10px; font-weight:500; background:rgba(255,255,255,0.05); color:#94a3b8; border:1px solid rgba(255,255,255,0.1);">Google Docs</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Gallery Infografis -->
+    <section class="py-20 px-8 lg:px-20 overflow-hidden">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <span class="tracking-[0.2em] uppercase text-xs font-bold" style="color:#a5b4fc;">Gallery</span>
+                <p class="mt-2 text-sm" style="color:#94a3b8;">Kumpulan infografis yang telah dirancang</p>
+            </div>
+
+            <!-- Grid Infografis (1 hingga 25) -->
+            <div class="info-card-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:10px;" id="infografis-grid">
+                <!-- Generated dynamically via plain HTML output -->
+                <!-- Infografis 1 - 25 -->
+                <script>
+                    let infoGrid = document.getElementById('infografis-grid');
+                    let htmlContent = '';
+                    for(let n = 1; n <= 25; n++) {
+                        htmlContent += `
+                        <div
+                            class="info-card"
+                            style="
+                                position:relative;
+                                overflow:hidden;
+                                aspect-ratio:4/7;
+                                transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+                                border: 1px solid rgba(255,255,255,0.08);
+                                border-radius: 8px;
+                                background: rgba(15,23,42,0.6);
+                            "
+                            onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(165,180,252,0.45)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.08)'; this.style.boxShadow='none';"
+                        >
+                            <img
+                                src="../img/project/ifg${n}.png"
+                                alt="Infografis ${n}"
+                                loading="lazy"
+                                style="width:100%; height:100%; object-fit:contain; display:block; transition:transform .35s ease;"
+                                onmouseover="this.style.transform='scale(1.05)'"
+                                onmouseout="this.style.transform='scale(1)'"
+                            >
+                        </div>`;
+                    }
+                    infoGrid.innerHTML = htmlContent;
+                </script>
+            </div>
+
+        </div>
+    </section>
+
+    <footer id="site-footer" style="position:relative; overflow:hidden; margin-top:0; padding:48px 24px 24px; background:linear-gradient(180deg, transparent 0%, rgba(20,24,55,0.9) 100%);">
+
+        <div class="footer-blob" style="position:absolute; bottom:-40px; right:-40px; width:160px; height:160px; border-radius:50%; background:rgba(124,58,237,0.07); pointer-events:none;"></div>
+        <div class="footer-blob footer-blob-2" style="position:absolute; top:-30px; left:-30px; width:120px; height:120px; border-radius:50%; background:rgba(79,70,229,0.06); pointer-events:none;"></div>
+        <div class="footer-particles" aria-hidden="true">
+            <span class="fp" style="left:10%; animation-delay:0s;"></span>
+            <span class="fp" style="left:25%; animation-delay:1.2s;"></span>
+            <span class="fp" style="left:42%; animation-delay:2.4s;"></span>
+            <span class="fp" style="left:58%; animation-delay:.6s;"></span>
+            <span class="fp" style="left:73%; animation-delay:1.8s;"></span>
+            <span class="fp" style="left:88%; animation-delay:3s;"></span>
+        </div>
+
+        <div style="max-width:1280px; margin:0 auto; position:relative; z-index:1;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; margin-bottom:32px;">
+                <div class="footer-reveal" data-reveal data-delay="0" style="display:flex; align-items:center; gap:12px;">
+                    <div class="footer-logo-wrap">
+                        <img src="../img/logo.png" alt="Logo Nabilla" style="width:42px; height:42px; object-fit:contain; display:block; position:relative; z-index:1;">
+                    </div>
+                    <h3 style="font-size:18px; font-weight:700; color:#f1f5f9; margin:0; letter-spacing:-0.3px;">Nabilla Tsani Ayasi</h3>
+                </div>
+                <p class="footer-reveal" data-reveal data-delay="100" style="font-size:13px; color:#94a3b8; margin:0; max-width:320px; line-height:1.6;">Web Development  ·  UI/UX  · System Analyst</p>
+                <a href="mailto:nabilla.tsani28@gmail.com" class="footer-reveal footer-email-btn" data-reveal data-delay="200" style="position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:7px 16px; border-radius:20px; background:rgba(79,70,229,0.15); border:1px solid rgba(79,70,229,0.3); color:#a5b4fc; font-size:12px; font-weight:500; text-decoration:none; transition:all .2s; backdrop-filter:blur(4px);" onmouseover="this.style.background='rgba(79,70,229,0.25)'; this.style.borderColor='rgba(165,180,252,0.5)'; this.style.color='#c7d2fe';" onmouseout="this.style.background='rgba(79,70,229,0.15)'; this.style.borderColor='rgba(79,70,229,0.3)'; this.style.color='#a5b4fc';">
+                    <i class="fa-solid fa-envelope" style="font-size:11px;"></i>
+                    nabilla.tsani28@gmail.com
+                    <span class="footer-email-shine"></span>
+                </a>
+            </div>
+
+            <div class="footer-divider footer-reveal" data-reveal data-delay="300" style="height:1px; background:linear-gradient(90deg, transparent, rgba(165,180,252,0.2), rgba(196,181,253,0.2), transparent); margin-bottom:20px;"></div>
+
+            <div class="footer-reveal" data-reveal data-delay="380" style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;">
+                <span style="font-size:11px; color:#94a3b8;">© 2026</span>
+                <span style="font-size:11px; color:#94a3b8; font-weight:600;">Nabilla Tsani Ayasi</span>
+                <span style="font-size:11px; color:#94a3b8;">·</span>
+                <span style="font-size:11px; color:#94a3b8;">All rights reserved</span>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .footer-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1);
+        }
+
+        .footer-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-divider {
+            transform: scaleX(0) translateY(0) !important;
+            transform-origin: center;
+            transition: opacity .6s ease, transform .7s cubic-bezier(.65,0,.35,1) !important;
+        }
+
+        .footer-divider.is-visible {
+            transform: scaleX(1) !important;
+        }
+
+        .footer-blob {
+            animation: footer-blob-float 8s ease-in-out infinite;
+        }
+
+        .footer-blob-2 {
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        @keyframes footer-blob-float {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(12px,-14px) scale(1.1); }
+        }
+
+        .footer-logo-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(129,140,248,.35), transparent 70%);
+            animation: footer-logo-pulse 2.8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes footer-logo-pulse {
+            0%, 100% { opacity: .4; transform: scale(.9); }
+            50% { opacity: .9; transform: scale(1.15); }
+        }
+
+        .footer-email-shine {
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+        }
+
+        .footer-email-btn.is-visible .footer-email-shine {
+            animation: footer-email-shine-anim 2.8s ease-in-out .8s infinite;
+        }
+
+        @keyframes footer-email-shine-anim {
+            0% { left: -60%; }
+            30% { left: 130%; }
+            100% { left: 130%; }
+        }
+
+        .footer-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .fp {
+            position: absolute;
+            bottom: -10px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(199,210,254,.6);
+            box-shadow: 0 0 6px rgba(165,180,252,.6);
+            animation: footer-particle-rise 6s ease-in infinite;
+        }
+
+        @keyframes footer-particle-rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            15% { opacity: .8; }
+            85% { opacity: .4; }
+            100% { transform: translateY(-140px) scale(.4); opacity: 0; }
+        }
+
+        @media (max-width: 640px) {
+            #site-footer { padding-left: 16px; padding-right: 16px; }
+        }
+    </style>
+
+    <script>
+        (function () {
+            var footer = document.getElementById('site-footer');
+            if (!footer) return;
+
+            var revealEls = footer.querySelectorAll('[data-reveal]');
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    var el = entry.target;
+                    var delay = el.getAttribute('data-delay') || 0;
+
+                    if (entry.isIntersecting) {
+                        setTimeout(function () {
+                            el.classList.add('is-visible');
+                        }, Number(delay));
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            revealEls.forEach(function (el) {
+                observer.observe(el);
+            });
+        })();
+    </script>
+
+    <!-- Stylesheet -->
+    <style>
+        @media (max-width: 1024px) {
+            .info-card-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+        @media (max-width: 640px) {
+            .info-card-grid { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+
+        /* ===== Responsive Project Layout (Flex on Mobile, Grid on Desktop) ===== */
+        .project-grid-container {
+            display: flex;
+            flex-direction: column;
+            width: min(100%, 960px);
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .project-grid-container {
+                display: grid;
+                grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+                align-items: stretch;
+            }
+        }
+
+        .project-info-container {
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        @media (min-width: 768px) {
+            .project-info-container {
+                padding: 20px 18px 18px;
+                border-top: none;
+                border-left: 1px solid rgba(255, 255, 255, 0.07);
+            }
+        }
+    </style>
+
+    <!-- Script Fungsionalitas Slideshow & Interaksi -->
+    <script>
+    var slideshowTimers  = {};
+    var progressTimers   = {};
+    var progressValues   = {};
+    var SLIDE_DURATION   = 3000;
+    var PROGRESS_TICK    = 50;
+
+    function getimg(pid) {
+        var spans = document.querySelectorAll('#' + pid + '-img span');
+        var imgs = [];
+        spans.forEach(function(s) { imgs.push(s.textContent.trim()); });
+        return imgs;
+    }
+
+    function switchPreview(pid, imgSrc, activeIdx, lastIdx, accent, total) {
+        var mainImg     = document.getElementById(pid + '-main');
+        var activeInput = document.getElementById(pid + '-active');
+        var counter     = document.getElementById(pid + '-counter');
+
+        if (!mainImg) return;
+
+        mainImg.style.opacity = '0';
+        setTimeout(function() {
+            mainImg.src = imgSrc;
+            mainImg.style.opacity = '1';
+        }, 150);
+
+        var tot = total || parseInt(document.getElementById(pid + '-total').value);
+        for (var i = 0; i < tot; i++) {
+            var thumb = document.getElementById(pid + '-thumb-' + i);
+            if (!thumb) continue;
+            var ac = document.getElementById(pid + '-accent').value;
+            if (i === activeIdx) {
+                thumb.style.borderColor = ac;
+                thumb.style.opacity = '1';
+            } else {
+                thumb.style.borderColor = 'transparent';
+                thumb.style.opacity = '0.55';
+            }
+        }
+
+        activeInput.value = activeIdx;
+        if (counter) counter.textContent = (activeIdx + 1) + ' / ' + tot;
+        resetProgress(pid);
+    }
+
+    function stepPreview(pid, total, dir) {
+        var current = parseInt(document.getElementById(pid + '-active').value);
+        var next    = (current + dir + total) % total;
+        var imgs    = getimg(pid);
+        var accent  = document.getElementById(pid + '-accent').value;
+        switchPreview(pid, imgs[next], next, total - 1, accent, total);
+    }
+
+    function resetProgress(pid) {
+        clearInterval(progressTimers[pid]);
+        progressValues[pid] = 0;
+        var bar = document.getElementById(pid + '-progress');
+        if (bar) bar.style.width = '0%';
+
+        var paused = document.getElementById(pid + '-paused');
+        if (paused && paused.value === '1') return;
+
+        progressTimers[pid] = setInterval(function() {
+            progressValues[pid] += (PROGRESS_TICK / SLIDE_DURATION) * 100;
+            if (progressValues[pid] >= 100) progressValues[pid] = 100;
+            var b = document.getElementById(pid + '-progress');
+            if (b) b.style.width = progressValues[pid] + '%';
+        }, PROGRESS_TICK);
+    }
+
+    function startSlideshow(pid) {
+        clearInterval(slideshowTimers[pid]);
+        var total = parseInt(document.getElementById(pid + '-total').value);
+        resetProgress(pid);
+        slideshowTimers[pid] = setInterval(function() {
+            var paused = document.getElementById(pid + '-paused');
+            if (paused && paused.value === '1') return;
+            stepPreview(pid, total, 1);
+        }, SLIDE_DURATION);
+    }
+
+    function pauseSlideshow(pid) {
+        var paused = document.getElementById(pid + '-paused');
+        if (paused) paused.value = '1';
+        clearInterval(progressTimers[pid]);
+    }
+
+    function resumeSlideshow(pid) {
+        var paused = document.getElementById(pid + '-paused');
+        if (paused) paused.value = '0';
+        resetProgress(pid);
+    }
+
+    function handleKey(e, pid, total) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); stepPreview(pid, total, -1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); stepPreview(pid, total,  1); }
+    }
+
+    // Intersection Observer: mulai slideshow hanya saat card terlihat di viewport
+    document.addEventListener('DOMContentLoaded', function() {
+        var pids = ['proj-0'];
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                var pid = entry.target.id.replace('-card', '');
+                if (entry.isIntersecting) {
+                    startSlideshow(pid);
+                } else {
+                    clearInterval(slideshowTimers[pid]);
+                    clearInterval(progressTimers[pid]);
+                    var paused = document.getElementById(pid + '-paused');
+                    if (paused) paused.value = '0';
+                    var bar = document.getElementById(pid + '-progress');
+                    if (bar) bar.style.width = '0%';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        pids.forEach(function(pid) {
+            var card = document.getElementById(pid + '-card');
+            if (card) observer.observe(card);
+        });
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web & Mobile Development - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-full antialiased flex flex-col w-full overflow-x-hidden relative text-slate-100 font-sans bg-slate-930">
+
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url('../img/bg.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -2;
+    "></div>
+
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: -1;
+    "></div>
+
+    <style>
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 13px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #cbd5e1;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: .25s;
+        }
+
+        .nav-dropdown-toggle i {
+            font-size: 9px;
+            transition: .25s;
+            line-height: 1;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            min-width: 220px;
+            background: rgba(17, 20, 45, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 50;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            border-radius: 10px;
+            transition: .2s;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: #fff;
+        }
+
+        .dropdown-menu i {
+            width: 16px;
+            color: #818cf8;
+            font-size: 12px;
+        }
+
+        .nav-link { transition: all 0.25s ease; }
+        .nav-link:hover { background: rgba(255, 255, 255, 0.08) !important; color: #f1f5f9 !important; }
+        .nav-link.active { background: rgba(79, 70, 229, 0.3) !important; color: #a5b4fc !important; border: 1px solid rgba(99, 102, 241, 0.2); }
+
+        .nav-link-mob { transition: background 0.2s, color 0.2s; }
+        .nav-link-mob:hover { background: rgba(255, 255, 255, 0.06) !important; color: #f1f5f9 !important; }
+        .nav-link-mob.active { background: rgba(79, 70, 229, 0.2) !important; color: #a5b4fc !important; font-weight: 600; }
+
+        .mobile-submenu {
+            padding-left: 20px !important;
+            font-size: 12px !important;
+            opacity: 0.9;
+            border-left: 1px dashed rgba(165, 180, 252, 0.2);
+            margin-left: 24px;
+            border-radius: 0 8px 8px 0 !important;
+        }
+
+        @media (max-width: 1140px) {
+            .nav-link, .nav-dropdown-toggle {
+                padding: 5px 9px !important;
+                font-size: 11px !important;
+            }
+            #nav-pill {
+                padding: 4px 12px !important;
+            }
+        }
+
+        @media (max-width: 920px) {
+            #nav-links-container { display: none !important; }
+            #nav-hamburger { display: flex !important; }
+            #main-nav { padding: 12px 16px !important; }
+        }
+    </style>
+
+    <nav id="main-nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 24px; transition: all .3s ease;">
+        <div id="nav-pill" style="display: flex; align-items: center; justify-content: space-between; gap: 4px; background: transparent; border: 1px solid transparent; border-radius: 50px; padding: 6px 20px; box-shadow: none; max-width: 1280px; margin: 0 auto; width: 100%; transition: all .3s ease;">
+            <a href="../index.html" style="text-decoration: none; flex-shrink: 0; display: flex; align-items: center;">
+                <img src="../img/logo.png" alt="Logo Nabilla" style="height: 38px; width: auto; display: block; transition: height .3s;">
+            </a>
+
+                        <div id="nav-links-container" style="display: flex; align-items: center; gap: 4px;">
+                <a href="../index.html#beranda" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Beranda</a>
+
+                <div class="nav-dropdown">
+                    <a href="../index.html#projects" class="nav-link nav-dropdown-toggle">
+                        <span>Projects</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <a href="./web.html"><i class="fa-solid fa-code"></i>Web and Mobile Development</a>
+                        <a href="./ui.html"><i class="fa-solid fa-pen-ruler"></i>UI/UX dan Desain Grafis</a>
+                        <a href="./data.html"><i class="fa-solid fa-database"></i>Sistem dan Data</a>
+                    </div>
+                </div>
+
+                <a href="../index.html#pendidikan" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Pendidikan</a>
+                <a href="../index.html#keahlian" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Keahlian</a>
+                <a href="../index.html#magang" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Magang</a>
+                <a href="../index.html#teknis" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Teknis</a>
+                <a href="../index.html#organisasi" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Organisasi</a>
+                <a href="../index.html#sertifikat" class="nav-link" style="padding: 6px 13px; border-radius: 50px; font-size: 12px; font-weight: 500; color: #cbd5e1; text-decoration: none; white-space: nowrap;">Sertifikat</a>
+            </div>
+
+            <button id="nav-hamburger" onclick="toggleMobileNav()" style="display: none; width: 36px; height: 36px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 4px; padding: 0; flex-shrink: 0; transition: .2s;">
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+                <span style="width: 16px; height: 1.5px; background: #a5b4fc; border-radius: 2px; display: block;"></span>
+            </button>
+        </div>
+
+        <div id="nav-mobile" style="display: none; margin-top: 10px; max-width: 1280px; margin-left: auto; margin-right: auto; padding: 0 4px;">
+            <div style="background: rgba(16, 18, 41, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 8px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);">
+                <a href="../index.html#beranda" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Beranda</a>
+
+                 <div style="padding: 8px 16px 4px 16px; font-size: 11px; font-weight: bold; color: #6366f1; text-transform: uppercase; letter-spacing: 0.05em;">Projects</div>
+                <a href="./web.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">Web & Mobile Development</a>
+                <a href="./ui.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">UI/UX & Graphic Design</a>
+                <a href="./data.html" class="nav-link-mob mobile-submenu" onclick="toggleMobileNav()" style="padding: 8px 16px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: block;">System & Data Science</a>
+                
+                <a href="../index.html#pendidikan" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Pendidikan</a>
+                <a href="../index.html#keahlian" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Keahlian</a>
+                <a href="../index.html#magang" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Magang</a>
+                <a href="../index.html#teknis" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Teknis</a>
+                <a href="../index.html#organisasi" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block;">Organisasi</a>
+                <a href="../index.html#sertifikat" class="nav-link-mob" onclick="toggleMobileNav()" style="padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 500; color: #cbd5e1; text-decoration: none; display: block; margin-top: 4px;">Sertifikat</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        var nav     = document.getElementById('main-nav');
+        var navPill = document.getElementById('nav-pill');
+        var navLogo = nav.querySelector('img');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+                nav.style.padding            = '8px 24px';
+                navPill.style.background     = 'rgba(17, 20, 45, 0.4)';
+                navPill.style.borderColor    = 'rgba(255, 255, 255, 0.08)';
+                navPill.style.boxShadow      = '0 8px 30px rgba(0,0,0,0.2)';
+                navPill.style.backdropFilter = 'blur(16px)';
+                navPill.style.webkitBackdropFilter = 'blur(16px)';
+                navLogo.style.height         = '34px';
+            } else {
+                nav.style.padding            = '16px 24px';
+                navPill.style.background     = 'transparent';
+                navPill.style.borderColor    = 'transparent';
+                navPill.style.boxShadow      = 'none';
+                navPill.style.backdropFilter = 'none';
+                navPill.style.webkitBackdropFilter = 'none';
+                navLogo.style.height         = '38px';
+            }
+        });
+
+        function toggleMobileNav() {
+            var mob = document.getElementById('nav-mobile');
+            var hamburger = document.getElementById('nav-hamburger');
+
+            if (mob.style.display === 'block') {
+                mob.style.display = 'none';
+                hamburger.style.background = 'rgba(255,255,255,0.06)';
+            } else {
+                mob.style.display = 'block';
+                hamburger.style.background = 'rgba(99, 102, 241, 0.2)';
+            }
+        }
+
+        (function() {
+            var path = window.location.pathname;
+            document.querySelectorAll('.nav-link, .nav-link-mob, .dropdown-menu a').forEach(function(a) {
+                var href = a.getAttribute('href') || '';
+                if (href && !href.includes('#') && path === new URL(href, window.location.origin).pathname) {
+                    a.classList.add('active');
+                    var parentDropdown = a.closest('.nav-dropdown');
+                    if (parentDropdown) {
+                        parentDropdown.querySelector('.nav-dropdown-toggle').classList.add('active');
+                    }
+                }
+            });
+        })();
+    </script>
+
+    <section class="py-20 px-4 md:px-8 lg:px-20 overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Header -->
+            <div class="text-center mb-12 reveal-fade" data-reveal>
+                <span class="tracking-[0.2em] uppercase text-xs font-bold" style="color:#a5b4fc;">Project's</span>
+                <h2 class="text-3xl font-bold text-white mt-2">Web &amp; Mobile Development</h2>
+                <p class="mt-2 text-sm" style="color:#94a3b8;">Koleksi aplikasi web dan mobile yang telah dirancang &amp; dikembangkan</p>
+            </div>
+
+            <!-- Project List -->
+            <div style="display:flex; flex-direction:column; gap:24px; width:min(100%, 960px); margin:0 auto;" id="project-container">
+                <!-- Data Proyek dimuat secara dinamis via skrip JavaScript di bawah untuk memastikan keutuhan lengkap -->
+            </div>
+        </div>
+    </section>
+
+    <footer id="site-footer" style="position:relative; overflow:hidden; margin-top:0; padding:48px 24px 24px; background:linear-gradient(180deg, transparent 0%, rgba(20,24,55,0.9) 100%);">
+
+        <div class="footer-blob" style="position:absolute; bottom:-40px; right:-40px; width:160px; height:160px; border-radius:50%; background:rgba(124,58,237,0.07); pointer-events:none;"></div>
+        <div class="footer-blob footer-blob-2" style="position:absolute; top:-30px; left:-30px; width:120px; height:120px; border-radius:50%; background:rgba(79,70,229,0.06); pointer-events:none;"></div>
+        <div class="footer-particles" aria-hidden="true">
+            <span class="fp" style="left:10%; animation-delay:0s;"></span>
+            <span class="fp" style="left:25%; animation-delay:1.2s;"></span>
+            <span class="fp" style="left:42%; animation-delay:2.4s;"></span>
+            <span class="fp" style="left:58%; animation-delay:.6s;"></span>
+            <span class="fp" style="left:73%; animation-delay:1.8s;"></span>
+            <span class="fp" style="left:88%; animation-delay:3s;"></span>
+        </div>
+
+        <div style="max-width:1280px; margin:0 auto; position:relative; z-index:1;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; margin-bottom:32px;">
+                <div class="footer-reveal" data-reveal data-delay="0" style="display:flex; align-items:center; gap:12px;">
+                    <div class="footer-logo-wrap">
+                        <img src="../img/logo.png" alt="Logo Nabilla" style="width:42px; height:42px; object-fit:contain; display:block; position:relative; z-index:1;">
+                    </div>
+                    <h3 style="font-size:18px; font-weight:700; color:#f1f5f9; margin:0; letter-spacing:-0.3px;">Nabilla Tsani Ayasi</h3>
+                </div>
+                <p class="footer-reveal" data-reveal data-delay="100" style="font-size:13px; color:#94a3b8; margin:0; max-width:320px; line-height:1.6;">Web Development  ·  UI/UX  · System Analyst</p>
+                <a href="mailto:nabilla.tsani28@gmail.com" class="footer-reveal footer-email-btn" data-reveal data-delay="200" style="position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:6px; margin-top:8px; padding:7px 16px; border-radius:20px; background:rgba(79,70,229,0.15); border:1px solid rgba(79,70,229,0.3); color:#a5b4fc; font-size:12px; font-weight:500; text-decoration:none; transition:all .2s; backdrop-filter:blur(4px);" onmouseover="this.style.background='rgba(79,70,229,0.25)'; this.style.borderColor='rgba(165,180,252,0.5)'; this.style.color='#c7d2fe';" onmouseout="this.style.background='rgba(79,70,229,0.15)'; this.style.borderColor='rgba(79,70,229,0.3)'; this.style.color='#a5b4fc';">
+                    <i class="fa-solid fa-envelope" style="font-size:11px;"></i>
+                    nabilla.tsani28@gmail.com
+                    <span class="footer-email-shine"></span>
+                </a>
+            </div>
+
+            <div class="footer-divider footer-reveal" data-reveal data-delay="300" style="height:1px; background:linear-gradient(90deg, transparent, rgba(165,180,252,0.2), rgba(196,181,253,0.2), transparent); margin-bottom:20px;"></div>
+
+            <div class="footer-reveal" data-reveal data-delay="380" style="display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;">
+                <span style="font-size:11px; color:#94a3b8;">© 2026</span>
+                <span style="font-size:11px; color:#94a3b8; font-weight:600;">Nabilla Tsani Ayasi</span>
+                <span style="font-size:11px; color:#94a3b8;">·</span>
+                <span style="font-size:11px; color:#94a3b8;">All rights reserved</span>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .footer-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1);
+        }
+
+        .footer-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-divider {
+            transform: scaleX(0) translateY(0) !important;
+            transform-origin: center;
+            transition: opacity .6s ease, transform .7s cubic-bezier(.65,0,.35,1) !important;
+        }
+
+        .footer-divider.is-visible {
+            transform: scaleX(1) !important;
+        }
+
+        .footer-blob {
+            animation: footer-blob-float 8s ease-in-out infinite;
+        }
+
+        .footer-blob-2 {
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        @keyframes footer-blob-float {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            50% { transform: translate(12px,-14px) scale(1.1); }
+        }
+
+        .footer-logo-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(129,140,248,.35), transparent 70%);
+            animation: footer-logo-pulse 2.8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes footer-logo-pulse {
+            0%, 100% { opacity: .4; transform: scale(.9); }
+            50% { opacity: .9; transform: scale(1.15); }
+        }
+
+        .footer-email-shine {
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 35%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+        }
+
+        .footer-email-btn.is-visible .footer-email-shine {
+            animation: footer-email-shine-anim 2.8s ease-in-out .8s infinite;
+        }
+
+        @keyframes footer-email-shine-anim {
+            0% { left: -60%; }
+            30% { left: 130%; }
+            100% { left: 130%; }
+        }
+
+        .footer-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .fp {
+            position: absolute;
+            bottom: -10px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(199,210,254,.6);
+            box-shadow: 0 0 6px rgba(165,180,252,.6);
+            animation: footer-particle-rise 6s ease-in infinite;
+        }
+
+        @keyframes footer-particle-rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            15% { opacity: .8; }
+            85% { opacity: .4; }
+            100% { transform: translateY(-140px) scale(.4); opacity: 0; }
+        }
+
+        @media (max-width: 640px) {
+            #site-footer { padding-left: 16px; padding-right: 16px; }
+        }
+    </style>
+
+    <script>
+        (function () {
+            var footer = document.getElementById('site-footer');
+            if (!footer) return;
+
+            var revealEls = footer.querySelectorAll('[data-reveal]');
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    var el = entry.target;
+                    var delay = el.getAttribute('data-delay') || 0;
+
+                    if (entry.isIntersecting) {
+                        setTimeout(function () {
+                            el.classList.add('is-visible');
+                        }, Number(delay));
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            revealEls.forEach(function (el) {
+                observer.observe(el);
+            });
+        })();
+    </script>
+
+    <style>
+    /* ===== Responsive Project Layout (Flex on Mobile, Grid on Desktop) ===== */
+    .project-grid-container {
+        display: flex;
+        flex-direction: column;
+        width: min(100%, 960px);
+        margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .project-grid-container {
+            display: grid;
+            grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+            align-items: stretch;
+        }
+    }
+
+    .project-info-container {
+        padding: 18px 16px;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    @media (min-width: 768px) {
+        .project-info-container {
+            padding: 20px 18px 18px;
+            border-top: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.07);
+        }
+    }
+
+    /* ===== Reveal umum (heading) ===== */
+    .reveal-fade{
+        opacity:0;
+        transform:translateY(25px);
+        transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1);
+    }
+
+    .reveal-fade.is-visible{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    /* ===== Card project: slide-in bergantian kiri/kanan ===== */
+    .project-card-reveal{
+        opacity:0;
+    }
+
+    .project-card-reveal[data-side="left"]{
+        transform:translateX(-50px);
+    }
+
+    .project-card-reveal[data-side="right"]{
+        transform:translateX(50px);
+    }
+
+    .project-card-reveal.is-visible{
+        opacity:1;
+        transform:translateX(0) !important;
+    }
+
+    .project-card-reveal:hover{
+        border-color:rgba(255,255,255,0.22) !important;
+        transform:translateY(-4px) !important;
+        box-shadow:0 16px 40px rgba(0,0,0,.3);
+    }
+
+    /* ===== Blob melayang halus, terus-menerus ===== */
+    .project-blob{
+        animation: project-blob-float 7s ease-in-out infinite;
+    }
+
+    @keyframes project-blob-float{
+        0%, 100%{ transform:translate(0,0) scale(1); }
+        50%{ transform:translate(10px,-12px) scale(1.08); }
+    }
+
+    /* ===== Icon project: pop-in + hover wiggle ===== */
+    .project-icon-pop{
+        transform:scale(.4) rotate(-15deg);
+        opacity:0;
+        transition: transform .55s cubic-bezier(.34,1.56,.64,1), opacity .4s ease;
+        transition-delay:.15s;
+    }
+
+    .project-card-reveal.is-visible .project-icon-pop{
+        transform:scale(1) rotate(0deg);
+        opacity:1;
+    }
+
+    .project-card-reveal:hover .project-icon-pop{
+        transform:scale(1.1) rotate(0deg) !important;
+        transition: transform .25s ease;
+    }
+
+    /* ===== Divider tumbuh dari kiri ===== */
+    .project-divider{
+        transform:scaleX(0);
+        transform-origin:left;
+        transition: transform .7s cubic-bezier(.65,0,.35,1);
+        transition-delay:.2s;
+    }
+
+    .project-card-reveal.is-visible .project-divider{
+        transform:scaleX(1);
+    }
+
+    /* ===== Tag/badge stagger pop ===== */
+    .tag-pop{
+        opacity:0;
+        transform:translateY(8px) scale(.92);
+        transition-property: opacity, transform, background, border-color, box-shadow;
+        transition-duration:.45s, .45s, .25s, .25s, .25s;
+        transition-timing-function: cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .project-card-reveal.is-visible .tag-pop{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    </style>
+
+    <script>
+    // Data proyek lengkap diterjemahkan ke format JavaScript Array of Objects
+    const projects = [
+        {
+            title: 'AI-Powered Project Management System',
+            tagline: 'Web-Based Project Management with RAG AI Assistant',
+            desc: 'Sistem manajemen proyek berbasis web dengan AI Assistant berbasis Retrieval-Augmented Generation (RAG) menggunakan Gemini API untuk monitoring proyek, manajemen tugas, serta otomatisasi pembuatan proposal dan laporan berbasis data real-time.',
+            images: [
+                '../img/project/ai1.png', '../img/project/ai2.png', '../img/project/ai3.png', '../img/project/ai4.png',
+                '../img/project/ai5.png', '../img/project/ai6.png', '../img/project/ai7.png', '../img/project/ai8.png'
+            ],
+            icon: 'fa-layer-group',
+            accent: '#c084fc',
+            accentBg: 'rgba(192,132,252,0.15)',
+            accentBd: 'rgba(192,132,252,0.3)',
+            label: 'AI Project',
+            roles: ['System Analyst', 'Full Stack Developer', 'AI Engineer (RAG)', 'Software Tester'],
+            techs: ['Laravel (TALL Stack)', 'PostgreSQL', 'Gemini API (RAG)'],
+            tools: ['VS Code', 'pgAdmin 4', 'Laragon', 'Microsoft Office', 'GitHub']
+        },
+        {
+            title: 'Natari Shoes Company Website',
+            tagline: 'Web Design Course Project - Company Profile & Product Showcase Website',
+            desc: 'Website company profile yang menampilkan informasi perusahaan, katalog produk sepatu, dan artikel blog dengan konten dinamis yang terintegrasi dengan database internal.',
+            images: [
+                '../img/project/natari1.png', '../img/project/natari2.png', '../img/project/natari3.png', '../img/project/natari4.png', '../img/project/natari5.png'
+            ],
+            icon: 'fa-shoe-prints',
+            accent: '#ef4444',
+            accentBg: 'rgba(239,68,68,0.15)',
+            accentBd: 'rgba(239,68,68,0.3)',
+            label: 'Company Website',
+            roles: ['Frontend Developer', 'UI Designer', 'Web Developer'],
+            techs: ['HTML', 'CSS', 'PHP', 'MySQL'],
+            tools: ['VS Code', 'XAMPP', 'phpMyAdmin', 'Browser']
+        },
+        {
+            title: 'Getter Glow',
+            tagline: 'Web Programming Course Project - Makeup Product Review Platform',
+            desc: 'Platform berbasis web yang menyediakan ulasan, rating, dan informasi produk makeup dari berbagai merek untuk membantu pengguna menemukan rekomendasi kecantikan yang sesuai melalui antarmuka yang responsif dan mudah digunakan.',
+            images: [
+                '../img/project/gg1.png', '../img/project/gg2.png', '../img/project/gg3.png', '../img/project/gg4.png',
+                '../img/project/gg5.png', '../img/project/gg6.png', '../img/project/gg7.png', '../img/project/gg8.png', '../img/project/gg9.png'
+            ],
+            icon: 'fa-star-half-stroke',
+            accent: '#ec4899',
+            accentBg: 'rgba(236,72,153,0.15)',
+            accentBd: 'rgba(236,72,153,0.3)',
+            label: 'Web Application',
+            roles: ['Frontend Developer', 'Backend Developer', 'UI Designer'],
+            techs: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+            tools: ['VS Code', 'XAMPP', 'phpMyAdmin', 'Browser']
+        },
+        {
+            title: 'Beauty and the Beast',
+            tagline: 'Web Programming Course Project - Aesthetic CRUD Website',
+            desc: 'Website CRUD sederhana yang dikembangkan sebagai proyek praktikum Pemrograman Web Dasar, dengan fokus pada implementasi operasi Create, Read, Update, Delete (CRUD) serta desain antarmuka yang estetis, responsif, dan user-friendly.',
+            images: [
+                '../img/project/btb1.png', '../img/project/btb2.png', '../img/project/btb3.png', '../img/project/btb4.png', '../img/project/btb5.png', '../img/project/btb6.png'
+            ],
+            icon: 'fa-wand-magic-sparkles',
+            accent: '#f59e0b',
+            accentBg: 'rgba(245,158,11,0.15)',
+            accentBd: 'rgba(245,158,11,0.3)',
+            roles: ['Frontend Developer'],
+            techs: ['HTML', 'CSS', 'JavaScript'],
+            tools: ['Visual Studio Code', 'Figma', 'XAMPP', 'phpMyAdmin']
+        },
+        {
+            title: 'FlickTalks',
+            tagline: 'Web Programming Course Project - Interactive Movie Review Platform',
+            desc: 'Platform ulasan film berbasis web yang memungkinkan pengguna membaca, menulis, dan mengeksplorasi review serta rating film. Website dilengkapi fitur detail film, komentar, pencarian, dan pengelolaan data menggunakan pendekatan full-stack.',
+            images: [
+                '../img/project/ft1.png', '../img/project/ft2.png', '../img/project/ft3.png', '../img/project/ft4.png',
+                '../img/project/ft5.png', '../img/project/ft6.png', '../img/project/ft7.png', '../img/project/ft8.png', '../img/project/ft9.png'
+            ],
+            icon: 'fa-film',
+            accent: '#60A5FA',
+            accentBg: 'rgba(96,165,250,0.15)',
+            accentBd: 'rgba(96,165,250,0.3)',
+            label: 'Full Stack Project',
+            roles: ['Full Stack Developer'],
+            techs: ['Laravel 11', 'PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
+            tools: ['Visual Studio Code', 'GitHub', 'XAMPP', 'phpMyAdmin', 'Browser'],
+            github: 'https://github.com/nabillatsani/Project-FlickTalks'
+        },
+        {
+            title: 'Soedmarket',
+            tagline: 'Mobile Programming Course Project - Android Social Marketplace Application',
+            desc: 'Aplikasi media sosial berbasis Android untuk komunitas Universitas Jenderal Soedirman yang memungkinkan pengguna mempromosikan produk melalui feed, memberikan like, komentar, dan mengirim pesan langsung (DM) sebagai sarana promosi dan interaksi tanpa fitur transaksi dalam aplikasi.',
+            images: [
+                '../img/project/sm1.png', '../img/project/sm2.png', '../img/project/sm3.png', '../img/project/sm4.png',
+                '../img/project/sm5.png', '../img/project/sm6.png', '../img/project/sm7.png', '../img/project/sm8.png'
+            ],
+            icon: 'fa-mobile-screen-button',
+            accent: '#f59e0b',
+            accentBg: 'rgba(245,158,11,0.15)',
+            accentBd: 'rgba(245,158,11,0.3)',
+            label: 'Mobile Application',
+            roles: ['Mobile Developer', 'UI Designer'],
+            techs: ['Flutter', 'Dart', 'Firebase'],
+            tools: ['Android Studio', 'Flutter SDK', 'Firebase Console', 'Dart DevTools', 'Android Emulator', 'GitHub', 'Figma', 'Canva'],
+            github: 'https://github.com/Clarestabertha/soedmarket'
+        },
+        {
+            title: 'Mulan',
+            tagline: 'Mobile Programming Course Project - Simple Mobile Application',
+            desc: 'Aplikasi Android sederhana yang dikembangkan sebagai proyek praktikum Pemrograman Mobile menggunakan Flutter. Aplikasi mengimplementasikan fitur dasar seperti halaman utama, form input, dan navigasi antar halaman sebagai sarana memahami konsep fundamental pengembangan aplikasi mobile.',
+            images: [
+                '../img/project/m1.png', '../img/project/m2.png', '../img/project/m3.png', '../img/project/m4.png', '../img/project/m5.png'
+            ],
+            icon: 'fa-mobile-screen',
+            accent: '#ef4444',
+            accentBg: 'rgba(239,68,68,0.15)',
+            accentBd: 'rgba(239,68,68,0.3)',
+            label: 'Academic Project',
+            roles: ['Flutter Developer', 'UI Designer', 'Software Tester'],
+            techs: ['Flutter', 'Dart'],
+            tools: ['Android Studio', 'Android Emulator']
+        },
+        {
+            title: 'SIMASBA',
+            tagline: 'Building & Asset Management Information System',
+            desc: 'Sistem Informasi Manajemen Bangunan dan Gedung (SIMASBA) berbasis web yang dikembangkan selama kerja praktik di PT KAI DAOP V Purwokerto untuk membantu manajer dan asisten manajer dalam mengelola, memantau, dan mendokumentasikan data aset bangunan secara digital, terstruktur, dan efisien.',
+            images: [
+                '../img/project/smb1.png', '../img/project/smb2.png', '../img/project/smb3.png', '../img/project/smb4.png',
+                '../img/project/smb5.png', '../img/project/smb6.png', '../img/project/smb7.png', '../img/project/smb8.png', '../img/project/smb9.png'
+            ],
+            icon: 'fa-building',
+            accent: '#38BDF8',
+            accentBg: 'rgba(56,189,248,0.18)',
+            accentBd: 'rgba(56,189,248,0.45)',
+            label: 'Internship Project',
+            roles: ['System Analyst', 'Full Stack Developer', 'UI Designer', 'Software Tester'],
+            techs: ['Laravel', 'PHP', 'Tailwind CSS', 'MySQL', 'HTML', 'JavaScript'],
+            tools: ['Visual Studio Code', 'Laragon', 'Figma', 'GitHub', 'Google Drive'],
+            github: 'https://github.com/Clarestabertha/SIMASBA'
+        },
+        {
+            title: 'IoT Automatic Barrier Gate System',
+            tagline: 'Embedded Systems Programming Course Project - IoT Based Automatic Barrier Gate Prototype',
+            desc: 'Sistem palang pintu otomatis berbasis IoT yang dikembangkan sebagai proyek mata kuliah Pemrograman Sistem Tertanam. Sistem memanfaatkan NodeMCU (ESP8266), sensor ultrasonik, dan motor servo untuk mendeteksi kendaraan serta mengontrol buka-tutup palang secara otomatis guna meningkatkan efisiensi dan keamanan akses masuk-keluar.',
+            images: [
+                '../img/project/pp1.png', '../img/project/pp2.png', '../img/project/pp3.png', '../img/project/pp4.jpg', '../img/project/pp5.jpg'
+            ],
+            icon: 'fa-microchip',
+            accent: '#10b981',
+            accentBg: 'rgba(16,185,129,0.15)',
+            accentBd: 'rgba(16,185,129,0.30)',
+            label: 'IoT Project',
+            roles: ['Embedded Systems Developer', 'IoT Developer', 'Hardware Designer'],
+            techs: ['PlatformIO', 'IoT', 'Arduino Framework'],
+            tools: ['Visual Studio Code', 'Breadboard', 'NodeMCU (ESP8266)', 'Ultrasonic Sensor', 'Infrared Obstacle Sensor', 'Servo Motor', 'Buzzer', 'Jumper Wires', 'Web Server', 'Micro USB Cable'],
+            github: 'https://github.com/nabillatsani/ProjekPST',
+            youtube: 'https://www.youtube.com/watch?v=xbvDmkhNzoI&feature=youtu.be'
+        },
+        {
+            title: 'Bone Disease Expert System',
+            tagline: 'Expert systems course project - Backward Chaining Method for Bone Disease Diagnosis',
+            desc: 'Sistem pakar berbasis web yang dirancang untuk mendiagnosis penyakit tulang berdasarkan gejala yang dialami pengguna menggunakan metode inferensi Backward Chaining. Sistem mengimplementasikan basis pengetahuan dan aturan inferensi untuk menghasilkan diagnosis secara interaktif dan sistematis.',
+            images: [
+                '../img/project/sp1.png', '../img/project/sp2.png', '../img/project/sp3.png', '../img/project/sp4.png',
+                '../img/project/sp5.png', '../img/project/sp6.png', '../img/project/sp7.png', '../img/project/sp8.png', '../img/project/sp9.png'
+            ],
+            icon: 'fa-stethoscope',
+            accent: '#fb923c',
+            accentBg: 'rgba(251,146,60,0.15)',
+            accentBd: 'rgba(251,146,60,0.35)',
+            label: 'Expert System',
+            roles: ['System Analyst', 'Frontend Developer', 'Software Tester'],
+            techs: ['CodeIgniter 3', 'PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS', 'Bootstrap'],
+            tools: ['Visual Studio Code', 'Laragon', 'Canva', 'Google Drive'],
+            github: 'https://github.com/yourrepo/expert-system'
+        },
+        {
+            title: 'My Portfolio',
+            tagline: 'Personal Portfolio Website showcasing projects',
+            desc: 'Website portofolio pribadi yang dirancang untuk menampilkan profil, pengalaman, pendidikan, keahlian, sertifikasi, dan proyek secara profesional. Website ini dibangun menggunakan Laravel 12 dan Tailwind CSS dengan desain yang responsif, modern, dan mudah dinavigasi untuk memberikan pengalaman pengguna yang optimal.',
+            images: [
+                '../img/project/portfolio1.png', '../img/project/portfolio2.png', '../img/project/portfolio3.png', '../img/project/portfolio4.png', '../img/project/portfolio5.png', '../img/project/portfolio6.png'
+            ],
+            icon: 'fa-briefcase',
+            accent: '#c084fc',
+            accentBg: 'rgba(192,132,252,0.15)',
+            accentBd: 'rgba(192,132,252,0.3)',
+            label: 'Portfolio',
+            roles: ['Full Stack Developer', 'UI/UX Designer'],
+            techs: ['Laravel', 'Tailwind CSS', 'JavaScript', 'HTML', 'CSS'],
+            tools: ['Antigravity', 'Figma', 'GitHub'],
+            github: ''
+        }
+    ];
+
+    // Rendering otomatis elemen proyek ke dalam HTML
+    document.addEventListener("DOMContentLoaded", function() {
+        const container = document.getElementById("project-container");
+        let htmlOutput = "";
+
+        projects.forEach((p, i) => {
+            const pid = 'proj-' + i;
+            const totalImgs = p.images.length;
+            const side = i % 2 === 0 ? 'left' : 'right';
+            const blobSide = i % 2 === 0 ? 'right:-40px' : 'left:-40px';
+
+            // Tombol GitHub & YouTube
+            let actionLinks = '';
+            if (p.github || p.youtube) {
+                actionLinks += '<div style="display:flex; gap:8px; margin-top:10px; align-items:center;">';
+                if (p.github) {
+                    actionLinks += `
+                    <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="tag-pop" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); text-decoration:none; transition:all .25s ease;"
+                       onmouseover="this.style.background='rgba(255,255,255,0.14)'; this.style.borderColor='rgba(255,255,255,0.28)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 18px rgba(0,0,0,.25)'; this.querySelector('i').style.color='#ffffff'; this.querySelector('span').style.color='#ffffff';"
+                       onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.querySelector('i').style.color='#cbd5e1'; this.querySelector('span').style.color='#cbd5e1';">
+                        <i class="fa-brands fa-github" style="font-size:13px; color:#cbd5e1; transition:.25s;"></i>
+                        <span style="font-size:10px; font-weight:600; color:#cbd5e1; transition:.25s;">GitHub</span>
+                    </a>`;
+                }
+                if (p.youtube) {
+                    actionLinks += `
+                    <a href="${p.youtube}" target="_blank" rel="noopener noreferrer" class="tag-pop" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:6px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.22); text-decoration:none; transition:all .25s ease;"
+                       onmouseover="this.style.background='#ef4444'; this.style.borderColor='#ef4444'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 18px rgba(239,68,68,.35)'; this.querySelector('i').style.color='#ffffff'; this.querySelector('span').style.color='#ffffff';"
+                       onmouseout="this.style.background='rgba(239,68,68,0.08)'; this.style.borderColor='rgba(239,68,68,0.22)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.querySelector('i').style.color='#f87171'; this.querySelector('span').style.color='#f87171';">
+                        <i class="fa-brands fa-youtube" style="font-size:13px; color:#f87171; transition:.25s;"></i>
+                        <span style="font-size:10px; font-weight:600; color:#f87171; transition:.25s;">YouTube</span>
+                    </a>`;
+                }
+                actionLinks += '</div>';
+            }
+
+            // Thumbnail loop
+            let thumbsHtml = '';
+            p.images.forEach((img, idx) => {
+                const borderStyle = idx === 0 ? `border:2px solid ${p.accent}; opacity:1;` : `border:2px solid transparent; opacity:0.55;`;
+                thumbsHtml += `
+                <div id="${pid}-thumb-${idx}" onclick="switchPreview('${pid}', '${img}', ${idx}, ${totalImgs - 1}, '${p.accent}', ${totalImgs})"
+                     style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#111827; border-radius:4px; cursor:pointer; ${borderStyle} box-sizing:border-box; transition:border-color 0.15s ease, opacity 0.15s ease;"
+                     onmouseover="if(document.getElementById('${pid}-active').value != '${idx}') this.style.opacity='0.85';"
+                     onmouseout="if(document.getElementById('${pid}-active').value != '${idx}') this.style.opacity='0.55';">
+                    <img src="${img}" alt="screenshot ${idx + 1}" style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; background:#0f172a;">
+                </div>`;
+            });
+
+            // Hidden image spans
+            let hiddenimg = '';
+            p.images.forEach(img => { hiddenimg += `<span>${img}</span>`; });
+
+            // Roles tags
+            let rolesHtml = '';
+            p.roles.forEach((role, rIdx) => {
+                rolesHtml += `<span class="tag-pop" style="transition-delay:${rIdx * 40}ms; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:600; background:${p.accentBg}; color:${p.accent}; border:1px solid ${p.accentBd};">${role}</span>`;
+            });
+
+            // Techs tags
+            let techsHtml = '';
+            p.techs.forEach((tech, tIdx) => {
+                techsHtml += `<span class="tag-pop" style="transition-delay:${100 + tIdx * 40}ms; padding:3px 9px; border-radius:5px; font-size:10px; font-weight:600; letter-spacing:0.04em; background:${p.accentBg}; color:${p.accent}; border:1px solid ${p.accentBd};">${tech}</span>`;
+            });
+
+            // Tools tags
+            let toolsHtml = '';
+            p.tools.forEach((tool, toIdx) => {
+                toolsHtml += `<span class="tag-pop" style="transition-delay:${200 + toIdx * 30}ms; padding:3px 9px; border-radius:5px; font-size:10px; font-weight:500; background:rgba(255,255,255,0.05); color:#94a3b8; border:1px solid rgba(255,255,255,0.1);">${tool}</span>`;
+            });
+
+            htmlOutput += `
+            <div id="${pid}-card" class="project-card-reveal" data-side="${side}"
+                style="position:relative; border-radius:24px; border:1px solid rgba(255,255,255,0.1); background: linear-gradient(145deg, rgba(30,41,59,0.7), rgba(15,23,42,0.5)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow:hidden; transition: border-color 0.3s ease, transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, opacity .8s ease;"
+                onmouseenter="pauseSlideshow('${pid}')" onmouseleave="resumeSlideshow('${pid}')">
+                
+                <div class="project-blob" style="position:absolute; top:-40px; ${blobSide}; width:180px; height:180px; border-radius:50%; background:${p.accent}; opacity:.12; filter:blur(50px); pointer-events:none;"></div>
+
+                <div class="project-grid-container">
+                    <div style="padding:18px; background:linear-gradient(135deg,#0f172a,#111827); display:flex; flex-direction:column; gap:12px; position:relative;"
+                        onkeydown="handleKey(event, '${pid}', ${totalImgs})" tabindex="0">
+                        
+                        <div style="position:relative; width:100%; aspect-ratio:217/100; overflow:hidden; background:#0f172a; border-radius:6px; display:flex; align-items:center; justify-content:center;">
+                            <img id="${pid}-main" src="${p.images[0]}" alt="${p.title}" style="width:100%; height:100%; object-fit:contain; display:block; transition:opacity 0.25s ease;">
+
+                            <button onclick="stepPreview('${pid}', ${totalImgs}, -1)" style="position:absolute; left:6px; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.15); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; opacity:0; transition:opacity 0.2s;" id="${pid}-btn-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button onclick="stepPreview('${pid}', ${totalImgs}, 1)" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.15); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:12px; opacity:0; transition:opacity 0.2s;" id="${pid}-btn-next"><i class="fa-solid fa-chevron-right"></i></button>
+
+                            <div id="${pid}-counter" style="position:absolute; bottom:6px; right:8px; font-size:10px; font-weight:600; color:rgba(255,255,255,0.7); background:rgba(0,0,0,0.4); padding:2px 7px; border-radius:10px; pointer-events:none;">1 / ${totalImgs}</div>
+
+                            <div style="position:absolute; bottom:0; left:0; width:100%; height:2px; background:rgba(255,255,255,0.08); border-radius:0 0 6px 6px;">
+                                <div id="${pid}-progress" style="height:100%; width:0%; background:${p.accent}; border-radius:inherit; transition:width 0.1s linear;"></div>
+                            </div>
+                        </div>
+
+                        <style>
+                            #${pid}-card:hover #${pid}-btn-prev, #${pid}-card:hover #${pid}-btn-next { opacity: 1 !important; }
+                        </style>
+
+                        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:4px;">
+                            ${thumbsHtml}
+                        </div>
+
+                        <input type="hidden" id="${pid}-active" value="0">
+                        <input type="hidden" id="${pid}-total" value="${totalImgs}">
+                        <input type="hidden" id="${pid}-accent" value="${p.accent}">
+                        <input type="hidden" id="${pid}-paused" value="0">
+                        <div id="${pid}-img" style="display:none;">${hiddenimg}</div>
+                    </div>
+
+                    <div class="project-info-container">
+                        <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;">
+                            <div class="project-icon-pop" style="width:36px; height:36px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:${p.accentBg}; border:1px solid ${p.accentBd}; margin-top:2px;">
+                                <i class="fa-solid ${p.icon}" style="font-size:14px; color:${p.accent};"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size:17px; font-weight:700; color:#f1f5f9; margin:0 0 4px; line-height:1.3;">${p.title}</h3>
+                                <p style="font-size:12px; color:${p.accent}; margin:0; font-weight:500; line-height:1.4;">${p.tagline}</p>
+                                ${actionLinks}
+                            </div>
+                        </div>
+
+                        <div class="project-divider" style="height:1px; background:rgba(255,255,255,0.07); margin:4px 0 14px;"></div>
+                        <p style="font-size:12px; color:#94a3b8; line-height:1.7; margin:0 0 16px;">${p.desc}</p>
+
+                        <div style="margin-bottom:14px;">
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:7px;">
+                                <i class="fa-solid fa-user-tie" style="font-size:11px; color:${p.accent};"></i>
+                                <span style="font-size:11px; color:#cbd5e1; font-weight:600;">Peran</span>
+                            </div>
+                            <div style="display:flex; flex-wrap:wrap; gap:6px;">${rolesHtml}</div>
+                        </div>
+
+                        <div style="margin-bottom:12px;">
+                            <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+                                <i class="fa-solid fa-code" style="font-size:10px; color:#64748b;"></i>
+                                <span style="font-size:10px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Teknologi</span>
+                            </div>
+                            <div style="display:flex; flex-wrap:wrap; gap:5px;">${techsHtml}</div>
+                        </div>
+
+                        <div style="margin-bottom:20px;">
+                            <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+                                <i class="fa-solid fa-wrench" style="font-size:10px; color:#64748b;"></i>
+                                <span style="font-size:10px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Tools</span>
+                            </div>
+                            <div style="display:flex; flex-wrap:wrap; gap:5px;">${toolsHtml}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
+
+        container.innerHTML = htmlOutput;
+
+        // Inisialisasi Intersection Observer setelah elemen digenerate ke DOM
+        initObservers();
+    });
+
+    var slideshowTimers  = {};
+    var progressTimers   = {};
+    var progressValues   = {};
+    var SLIDE_DURATION   = 3000;
+    var PROGRESS_TICK    = 50;
+
+    function getimg(pid) {
+        var spans = document.querySelectorAll('#' + pid + '-img span');
+        var imgs = [];
+        spans.forEach(function(s) { imgs.push(s.textContent.trim()); });
+        return imgs;
+    }
+
+    function switchPreview(pid, imgSrc, activeIdx, lastIdx, accent, total) {
+        var mainImg     = document.getElementById(pid + '-main');
+        var activeInput = document.getElementById(pid + '-active');
+        var counter     = document.getElementById(pid + '-counter');
+
+        if (!mainImg) return;
+        mainImg.style.opacity = '0';
+        setTimeout(function() {
+            mainImg.src = imgSrc;
+            mainImg.style.opacity = '1';
+        }, 150);
+
+        var tot = total || parseInt(document.getElementById(pid + '-total').value);
+        for (var i = 0; i < tot; i++) {
+            var thumb = document.getElementById(pid + '-thumb-' + i);
+            if (!thumb) continue;
+            var ac = document.getElementById(pid + '-accent').value;
+            if (i === activeIdx) {
+                thumb.style.borderColor = ac;
+                thumb.style.opacity = '1';
+            } else {
+                thumb.style.borderColor = 'transparent';
+                thumb.style.opacity = '0.55';
+            }
+        }
+
+        activeInput.value = activeIdx;
+        if (counter) counter.textContent = (activeIdx + 1) + ' / ' + tot;
+        resetProgress(pid);
+    }
+
+    function stepPreview(pid, total, dir) {
+        var current = parseInt(document.getElementById(pid + '-active').value);
+        var next    = (current + dir + total) % total;
+        var imgs    = getimg(pid);
+        var accent  = document.getElementById(pid + '-accent').value;
+        switchPreview(pid, imgs[next], next, total - 1, accent, total);
+    }
+
+    function resetProgress(pid) {
+        clearInterval(progressTimers[pid]);
+        progressValues[pid] = 0;
+        var bar = document.getElementById(pid + '-progress');
+        if (bar) bar.style.width = '0%';
+
+        var paused = document.getElementById(pid + '-paused');
+        if (paused && paused.value === '1') return;
+
+        progressTimers[pid] = setInterval(function() {
+            progressValues[pid] += (PROGRESS_TICK / SLIDE_DURATION) * 100;
+            if (progressValues[pid] >= 100) progressValues[pid] = 100;
+            var b = document.getElementById(pid + '-progress');
+            if (b) b.style.width = progressValues[pid] + '%';
+        }, PROGRESS_TICK);
+    }
+
+    function startSlideshow(pid) {
+        clearInterval(slideshowTimers[pid]);
+        var total = parseInt(document.getElementById(pid + '-total').value);
+        resetProgress(pid);
+        slideshowTimers[pid] = setInterval(function() {
+            var paused = document.getElementById(pid + '-paused');
+            if (paused && paused.value === '1') return;
+            stepPreview(pid, total, 1);
+        }, SLIDE_DURATION);
+    }
+
+    function pauseSlideshow(pid) {
+        var paused = document.getElementById(pid + '-paused');
+        if (paused) paused.value = '1';
+        clearInterval(progressTimers[pid]);
+    }
+
+    function resumeSlideshow(pid) {
+        var paused = document.getElementById(pid + '-paused');
+        if (paused) paused.value = '0';
+        resetProgress(pid);
+    }
+
+    function handleKey(e, pid, total) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); stepPreview(pid, total, -1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); stepPreview(pid, total,  1); }
+    }
+
+    function initObservers() {
+        var pids = [];
+        projects.forEach((_, i) => pids.push('proj-' + i));
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                var pid = entry.target.id.replace('-card', '');
+                if (entry.isIntersecting) {
+                    startSlideshow(pid);
+                    entry.target.classList.add('is-visible');
+                } else {
+                    clearInterval(slideshowTimers[pid]);
+                    clearInterval(progressTimers[pid]);
+                    var paused = document.getElementById(pid + '-paused');
+                    if (paused) paused.value = '0';
+                    var bar = document.getElementById(pid + '-progress');
+                    if (bar) bar.style.width = '0%';
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        pids.forEach(function(pid) {
+            var card = document.getElementById(pid + '-card');
+            if (card) observer.observe(card);
+        });
+
+        var headingEl = document.querySelector('.reveal-fade[data-reveal]');
+        if (headingEl) {
+            var headObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+            headObserver.observe(headingEl);
+        }
+    }
+    </script>
+
+</body>
+</html>
